@@ -12,7 +12,7 @@ public class UndirectedGraph {
 	
 	public static void addVertex(String label) {
 		Vertex vertex = new Vertex(label);
-		uGraph.putIfAbsent(vertex, new CopyOnWriteArrayList<Vertex>());
+		uGraph.putIfAbsent(vertex, new CopyOnWriteArrayList<>());
 	}
 	
 	public static void addEdge(String src, String dest) {
@@ -21,7 +21,7 @@ public class UndirectedGraph {
 			Vertex vtx = new Vertex(dest);
 			uGraph.get(vertex).add(vtx);
 		} else {
-			uGraph.putIfAbsent(vertex, new CopyOnWriteArrayList<Vertex>());
+			uGraph.putIfAbsent(vertex, new CopyOnWriteArrayList<>());
 		}
 	}
 	
@@ -42,11 +42,7 @@ public class UndirectedGraph {
 	
 	public static void removeEdge(String src, String dest) {
 		CopyOnWriteArrayList<Vertex> copy = uGraph.get(new Vertex(src));
-		copy.stream().forEach(p -> {
-			if (p.getLabel().equals(dest)) {
-				copy.remove(new Vertex(dest));
-			}
-		});
+		copy.stream().filter(p -> p.getLabel().equals(dest)).map(p -> new Vertex(dest)).forEach(copy::remove);
 	}
 	
 	public static void main(String[] args) {

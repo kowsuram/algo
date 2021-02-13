@@ -98,7 +98,7 @@ public class DirectedGraph {
 	}
 	
 	public static void displayGraph() {
-		dGraph.forEach((k, v) -> {
+		dGraph.forEach((Vertex k, List<Edge> v) -> {
 			v.forEach(op -> {
 				System.out.println(k.getLabel() + " -> " + op.getDestVtx());
 			});
